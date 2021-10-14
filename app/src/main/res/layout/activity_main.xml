@@ -16,30 +16,13 @@
         android:orientation="vertical"
         >
 
-        <EditText
-            android:id="@+id/et1"
-            android:layout_width="match_parent"
-            android:hint="@string/pick_user"
-            android:textAlignment="center"
-            android:layout_height="wrap_content"
-            />
-
-        <EditText
-            android:id="@+id/et2"
-            android:layout_width="match_parent"
-            android:hint="@string/pick_password"
-            android:textAlignment="center"
-            android:inputType="textPassword"
-            android:layout_height="wrap_content"
-            />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnSalirR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:onClick="navegar"
-            android:text="@string/btn_login"
+            android:text="Salir"
             />
 
 
