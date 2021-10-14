@@ -82,6 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hacer pedido"
+                android:onClick="realizarPedido"
                 android:textAlignment="center" />
 
             <Space
@@ -94,6 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cancelar pedido"
+                android:onClick="cancelarPedido"
                 android:textAlignment="center" />
 
             <Space

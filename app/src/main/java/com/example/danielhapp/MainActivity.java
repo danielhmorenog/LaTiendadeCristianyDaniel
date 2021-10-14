@@ -44,5 +44,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void navegar(View h){
+        Intent ir = new Intent( this,Home.class);
+        ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(ir);
+    }
+
 
 }
