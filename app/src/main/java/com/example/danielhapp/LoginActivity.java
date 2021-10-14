@@ -12,13 +12,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -28,88 +32,123 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
 
     TextInputEditText Logemail,Logpass;
     TextView RegisterHere;
     Button btn_Login;
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
+    //con google
+
+    private GoogleApiClient googleApiClient;
     private GoogleSignInClient mGoogleCli;
-    private final static int RC_SING_IN = 123;
+    private final static int RC_SING_IN = 777;
+    private SignInButton signInButton;
+    private FirebaseAuth.AuthStateListener firebaseA;
 
+    //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-
         Logemail = findViewById(R.id.etLoginEmail);
         Logpass = findViewById(R.id.etLoginPass);
         RegisterHere = findViewById(R.id.tvRegisterHere);
         btn_Login = findViewById(R.id.btnLogin);
 
-
         mAuth = FirebaseAuth.getInstance();
 
-        btn_Login.setOnClickListener(view -> {
-            loginUser();
-        });
+
         RegisterHere.setOnClickListener(view ->{
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
         });
 
         // inicio de seccion con google
-        
-        Crearsolicitud();
 
+        firebaseA = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = mAuth.getCurrentUser();
+                if(user !=null){
+                    goMainScreen();
+                }
+            }
+        } ;
 
-
-    }
-
-    //solicitud google
-    private void Crearsolicitud() {
-    //Configuracion de Inicico de sesion google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this,this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+                .build();
+
+        signInButton = (SignInButton) findViewById(R.id.btnLoginGoogle);
+
+        signInButton.setSize(SignInButton.SIZE_WIDE);
+
+        //Botones inicio de seccion
+        btn_Login.setOnClickListener(view -> {
+            loginUser();
+
+        });
+
+        signInButton.setOnClickListener((v) -> {
+                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                startActivityForResult(intent,RC_SING_IN);
+
+        });
+
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(firebaseA);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+    
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SING_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-          //  handleSignInResult(task);
-        }
-    }
-/*
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
-            // Signed in successfully, show authenticated UI.
-            updateUI(account);
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("", "signInResult:failed code=" + e.getStatusCode());
-            updateUI(null);
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
         }
     }
 
-*/
-    private void signIn() {
-        Intent signInIntent = mGoogleCli.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SING_IN);
+    private void handleSignInResult(GoogleSignInResult result) {
+       if (result.isSuccess()){
+           AutenticacionFirebase(result.getSignInAccount());
+       }else{
+           Toast.makeText(this,"No se puede iniciar seccion", Toast.LENGTH_SHORT).show();
+       }
+    }
+
+    private void goMainScreen() {
+        Intent intent = new Intent(this,MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(firebaseA != null){
+            mAuth.removeAuthStateListener(firebaseA);
+        }
     }
 
     // metodo para autenticacion con firebase
@@ -119,20 +158,10 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            // sis inicio de seccion
-                            FirebaseUser user = mAuth.getCurrentUser();//Obtenemos el usuario
+                        if(!task.isSuccessful()){
 
-                            //si el usuario inicia sesion
-                            if(task.getResult().getAdditionalUserInfo().isNewUser()){
+                            Toast.makeText(getApplicationContext(),"No se puedo autenticar",Toast.LENGTH_SHORT).show();
 
-                                String uid = user.getUid();
-                                String correo = user.getEmail();
-                            }
-
-                            startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
-                        }else{
-                            Toast.makeText(LoginActivity.this,"",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -164,5 +193,6 @@ public class LoginActivity extends AppCompatActivity {
             });
         }
     }
+
 
 }

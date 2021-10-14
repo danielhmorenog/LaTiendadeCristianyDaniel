@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "807547839747-n7ia29mu2pjjpguv30u05ma3q36shsif.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.danielhapp",
+            "certificate_hash": "c2081a86a9678c16ffcb94d71caad67481da5209"
+          }
+        },
+        {
           "client_id": "807547839747-osc5800llb0o6447h0kr78ubdbtjfoku.apps.googleusercontent.com",
           "client_type": 3
         }
