@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "807547839747",
+    "project_id": "tallermobil-f998d",
+    "storage_bucket": "tallermobil-f998d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807547839747:android:1e61a6c2de579ed59e3536",
+        "android_client_info": {
+          "package_name": "com.example.danielhapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807547839747-osc5800llb0o6447h0kr78ubdbtjfoku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBE1eI6HQp8IMebS51r22vGZS-JB9pWIWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807547839747-osc5800llb0o6447h0kr78ubdbtjfoku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
