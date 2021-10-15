@@ -1,6 +1,8 @@
 package com.example.danielhapp;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -93,15 +95,18 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         signInButton.setSize(SignInButton.SIZE_WIDE);
 
+
         //Botones inicio de seccion
         btn_Login.setOnClickListener(view -> {
+            ConexionInternet();
             loginUser();
 
         });
 
         signInButton.setOnClickListener((v) -> {
-                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-                startActivityForResult(intent,RC_SING_IN);
+            ConexionInternet();
+            Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+            startActivityForResult(intent,RC_SING_IN);
 
         });
 
@@ -194,5 +199,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
+    public void ConexionInternet(){
+        ConnectivityManager connectivityManager =(ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if(networkInfo!= null && networkInfo.isConnectedOrConnecting()){
+            Log.d("", "Conexion establecida");
+
+        }else{
+            Toast.makeText(LoginActivity.this,"Error de Conexion", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }
