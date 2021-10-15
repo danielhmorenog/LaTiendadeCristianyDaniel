@@ -2,9 +2,11 @@
     <string name="app_name">DanielHApp</string>
     <string name="btn_login">Ingresar</string>
     <string name="btn_return">Regresar</string>
-    <string name="btn_ok">Ok</string>
+
     <string name="btn_interface">Interface</string>
     <string name="btn_delegado">Delegado</string>
     <string name="pick_password">Pick your password</string>
     <string name="pick_user">Pick your user</string>
+
+
 </resources>

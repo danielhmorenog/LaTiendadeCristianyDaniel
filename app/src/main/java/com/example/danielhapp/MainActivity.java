@@ -1,5 +1,6 @@
 package com.example.danielhapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,16 +10,28 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
 
     Button btn_salir;
-    FirebaseAuth mAuth;
+
+     private GoogleApiClient googleApiClient;
+     private FirebaseAuth mAuth;
+     private GoogleSignInClient cli;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +44,19 @@ public class MainActivity extends AppCompatActivity {
 
        btn_salir.setOnClickListener(view -> {
            mAuth.signOut();
+           logOut();
            startActivity(new Intent(MainActivity.this, LoginActivity.class));
        });
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this,this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+                .build();
+
     }
 
     @Override
@@ -44,6 +68,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void goLogInScream(){
+       Intent intent = new Intent(this, LoginActivity.class);
+       intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+       startActivity(intent);
+    }
+
+    public void logOut(){
+        mAuth.signOut();
+    Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+        @Override
+        public void onResult(@NonNull Status status) {
+            if(status.isSuccess()){
+                goLogInScream();
+            }else{
+                Toast.makeText(MainActivity.this,"",Toast.LENGTH_SHORT).show();
+            }
+        }
+    });
+    }
     public void navegar(View h){
         Intent ir = new Intent( this,Home.class);
         ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
@@ -51,4 +94,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 }
