@@ -32,7 +32,7 @@ public class Home extends AppCompatActivity {
         if(cbProducto1.isChecked()==false && cbProducto2.isChecked()==false && cbProducto3.isChecked()==false){
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setMessage("Debe seleccionar por lo menos un producto");
-            alert.setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
+            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
