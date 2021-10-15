@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     Button btn_salir;
     Intent internet;
 
+    Intent servicio;
+
      private GoogleApiClient googleApiClient;
      private FirebaseAuth mAuth;
      private GoogleSignInClient cli;
@@ -68,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         imgerror.setVisibility(View.INVISIBLE);
 
         internet = new Intent(this,webService.class);
+
+        servicio = new Intent(this, MyService.class);
+        startService(servicio);
 
     }
 
