@@ -25,6 +25,15 @@
             android:text="Salir"
             />
 
+        <ImageView
+            android:id="@+id/imagen_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/error"
+            android:layout_gravity="center"
+
+            />
+
 
     </LinearLayout>
 

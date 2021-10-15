@@ -6,11 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+import com.example.danielhapp.service.webService;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -28,16 +33,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
 
     Button btn_salir;
+    Intent internet;
 
      private GoogleApiClient googleApiClient;
      private FirebaseAuth mAuth;
      private GoogleSignInClient cli;
+     ImageView imgerror;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);//renderiza el xml de android
-
 
        btn_salir = findViewById(R.id.btnSalirR);
        mAuth = FirebaseAuth.getInstance();
@@ -57,6 +63,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 .enableAutoManage(this,this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
                 .build();
+
+
+        imgerror = findViewById(R.id.imagen_error);
+        imgerror.setVisibility(View.INVISIBLE);
+
+        internet = new Intent(this,webService.class);
 
     }
 
@@ -90,6 +102,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
     });
     }
+
+    public void ConexionInternet(){
+       // Intent r = new Intent(this, )
+
+
+        startActivity(internet);
+
+    }
+
 
 
     @Override
