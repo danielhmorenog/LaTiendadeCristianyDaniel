@@ -11,26 +11,34 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:foregroundGravity="center"
+        android:gravity="center"
         android:orientation="vertical"
-        >
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="-35dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="188dp"
+            android:layout_height="159dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="98dp"
+            android:contentDescription="TODO"
+            app:srcCompat="@drawable/tienda" />
 
         <Button
             android:id="@+id/btn_navegar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
             android:text="@string/btn_login"
-            />
+            android:textAlignment="center" />
 
         <Button
             android:id="@+id/btnSalirR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
             android:text="Salir"
-            />
+            android:textAlignment="center" />
 
     </LinearLayout>
 
