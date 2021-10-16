@@ -99,6 +99,15 @@ public class Welcome extends AppCompatActivity implements GoogleApiClient.OnConn
                 startActivity(ir);
             }
         });
+        alert.setNegativeButton("Menu Principal", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                Intent ir = new Intent(Welcome.this, MainActivity.class);
+                ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(ir);
+            }
+        });
         alert.show();
 
 
