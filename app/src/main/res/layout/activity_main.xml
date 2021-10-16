@@ -16,6 +16,13 @@
         android:orientation="vertical"
         >
 
+        <Button
+            android:id="@+id/btn_navegar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/btn_login"
+            />
 
         <Button
             android:id="@+id/btnSalirR"
@@ -24,18 +31,6 @@
             android:textAlignment="center"
             android:text="Salir"
             />
-
-        <Button
-            android:id="@+id/btn_navegar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:onClick="navegar"
-            android:text="@string/btn_login"
-            />
-
-
-
 
     </LinearLayout>
 

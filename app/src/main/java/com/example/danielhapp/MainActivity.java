@@ -34,7 +34,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
 
-    Button btn_salir;
+    Button btn_salir, btn_navegar;
     Intent internet;
 
     Intent servicio;
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         setContentView(R.layout.activity_main);//renderiza el xml de android
 
        btn_salir = findViewById(R.id.btnSalirR);
+       btn_navegar= findViewById(R.id.btn_navegar);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -58,6 +59,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
            logOut();
            startActivity(new Intent(MainActivity.this, LoginActivity.class));
        });
+
+        btn_navegar.setOnClickListener(view ->  {
+            onResume();
+            navegar();
+        });
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -83,12 +89,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             Log.d("", "Conexion establecida");
         } else{
             //ntent ir = new Intent(MainActivity.this,LoginActivity.class);
-    salir();
+            salir();
         }
     }
 
     public void salir(){
         mAuth.signOut();
+        logOut();
+        Toast.makeText(this,"No hay conexion a internet",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -119,7 +127,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
     });
     }
-    public void navegar(View h){
+
+    public void navegar(){
         Intent ir = new Intent( this,Home.class);
         ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(ir);
@@ -128,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     public void ConexionInternet(){
        // Intent r = new Intent(this, )
-
         startActivity(internet);
 
     }
