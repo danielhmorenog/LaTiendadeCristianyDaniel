@@ -44,12 +44,11 @@ public class webService extends Service {
             return null;
         }
 
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
+
 
     }
+
+
 
    public void conexion() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);

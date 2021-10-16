@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.danielhapp.service.UtilsNetwork;
 import com.example.danielhapp.service.webService;
 
 import com.google.android.gms.auth.api.Auth;
@@ -48,13 +50,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         setContentView(R.layout.activity_main);//renderiza el xml de android
 
        btn_salir = findViewById(R.id.btnSalirR);
-       mAuth = FirebaseAuth.getInstance();
+
+        mAuth = FirebaseAuth.getInstance();
 
        btn_salir.setOnClickListener(view -> {
            mAuth.signOut();
            logOut();
            startActivity(new Intent(MainActivity.this, LoginActivity.class));
        });
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -65,15 +69,26 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
                 .build();
 
-
-        imgerror = findViewById(R.id.imagen_error);
-        imgerror.setVisibility(View.INVISIBLE);
-
         internet = new Intent(this,webService.class);
 
         servicio = new Intent(this, MyService.class);
         startService(servicio);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(UtilsNetwork.isOnline(this)){
+            Log.d("", "Conexion establecida");
+        } else{
+            //ntent ir = new Intent(MainActivity.this,LoginActivity.class);
+    salir();
+        }
+    }
+
+    public void salir(){
+        mAuth.signOut();
     }
 
     @Override
@@ -113,7 +128,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     public void ConexionInternet(){
        // Intent r = new Intent(this, )
-
 
         startActivity(internet);
 
