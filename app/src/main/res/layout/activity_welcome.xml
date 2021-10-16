@@ -86,7 +86,7 @@
                 android:id="@+id/btnSalir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Salir"
+                android:text="Cancelar pedido"
                 android:textAlignment="center" />
 
             <Space

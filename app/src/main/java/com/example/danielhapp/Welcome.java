@@ -1,8 +1,10 @@
 package com.example.danielhapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,19 +50,7 @@ public class Welcome extends AppCompatActivity implements GoogleApiClient.OnConn
         enviar= findViewById(R.id.btnComprar);
 
         Bundle recibo = getIntent().getExtras();
-        producto1 = recibo.getString("producto1");
-        producto2 = recibo.getString("producto2");
-        producto3 = recibo.getString("producto3");
-
-        if(producto1!="none"){
-            lista+= producto1 + "\n";
-        }
-        if(producto2!="none"){
-            lista+= producto2 + "\n";
-        }
-        if(producto3!="none"){
-            lista+= producto3 + "\n";
-        }
+        establecerPedido(recibo);
 
         etPedido = findViewById(R.id.etPedido);
         etPedido.setText(lista);
@@ -77,7 +67,7 @@ public class Welcome extends AppCompatActivity implements GoogleApiClient.OnConn
 
         enviar.setOnClickListener(view -> {
             onResume();
-            realizarenvio();
+            realizarEnvio();
         });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -97,12 +87,29 @@ public class Welcome extends AppCompatActivity implements GoogleApiClient.OnConn
         startActivity(ir);
     }
 
-    public void realizarenvio(){
+    public void realizarEnvio(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage("Su pedido:\n"+lista+"Fué enviado exitosamente a traves de "+envios.getSelectedItem().toString());
+        alert.setPositiveButton("Realizar otro pedido", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                Intent ir = new Intent(Welcome.this, Home.class);
+                ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(ir);
+            }
+        });
+        alert.setNegativeButton("Menu Principal", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                Intent ir = new Intent(Welcome.this, MainActivity.class);
+                ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(ir);
+            }
+        });
+        alert.show();
 
-        Toast.makeText(this,"Se realizo su pedido",Toast.LENGTH_SHORT).show();
-        Intent ir = new Intent(this, Home.class);
-        ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(ir);
 
     }
 
@@ -152,7 +159,21 @@ public class Welcome extends AppCompatActivity implements GoogleApiClient.OnConn
             }
         });
     }
+    public void establecerPedido(Bundle recibo){
+        producto1 = recibo.getString("producto1");
+        producto2 = recibo.getString("producto2");
+        producto3 = recibo.getString("producto3");
 
+        if(!producto1.equals("none")){
+            lista+= producto1 + "\n";
+        }
+        if(!producto2.equals("none")){
+            lista+= producto2 + "\n";
+        }
+        if(!producto3.equals("none")){
+            lista+= producto3 + "\n";
+        }
+    }
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 

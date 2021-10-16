@@ -26,6 +26,25 @@
             android:contentDescription="TODO"
             app:srcCompat="@drawable/tienda" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:foregroundGravity="center"
+            android:orientation="horizontal"
+            android:layout_marginBottom="30dp"
+            >
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="70px"
+                android:textColor="@color/black"
+                android:text="Menu Principal" />
+        </LinearLayout>
+
         <Button
             android:id="@+id/btn_navegar"
             android:layout_width="match_parent"

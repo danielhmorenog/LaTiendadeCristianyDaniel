@@ -42,8 +42,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     Button btn_Login;
     private FirebaseAuth mAuth;
 
-    Intent servicio;
-
     //con google
 
     private GoogleApiClient googleApiClient;
@@ -111,9 +109,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         });
 
-
-        servicio = new Intent(this, MyService.class);
-        startService(servicio);
     }
 
     @Override
