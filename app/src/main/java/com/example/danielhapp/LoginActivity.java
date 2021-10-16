@@ -102,7 +102,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         btn_Login.setOnClickListener(view -> {
             ConexionInternet();
             loginUser();
-
         });
 
         signInButton.setOnClickListener((v) -> {

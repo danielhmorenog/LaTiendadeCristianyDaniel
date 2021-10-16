@@ -45,6 +45,7 @@ public class Welcome extends AppCompatActivity implements GoogleApiClient.OnConn
         mAuth= FirebaseAuth.getInstance();
 
         salir = findViewById(R.id.btnSalir);
+        enviar= findViewById(R.id.btnComprar);
 
         Bundle recibo = getIntent().getExtras();
         producto1 = recibo.getString("producto1");
@@ -74,6 +75,11 @@ public class Welcome extends AppCompatActivity implements GoogleApiClient.OnConn
             cancelarPedido();
         });
 
+        enviar.setOnClickListener(view -> {
+            onResume();
+            realizarenvio();
+        });
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -90,6 +96,17 @@ public class Welcome extends AppCompatActivity implements GoogleApiClient.OnConn
         ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(ir);
     }
+
+    public void realizarenvio(){
+
+        Toast.makeText(this,"Se realizo su pedido",Toast.LENGTH_SHORT).show();
+        Intent ir = new Intent(this, Home.class);
+        ir.addFlags(ir.FLAG_ACTIVITY_CLEAR_TOP | ir.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(ir);
+
+    }
+
+
 
     @Override
     protected void onResume() {

@@ -141,8 +141,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     }
 
-
-
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 

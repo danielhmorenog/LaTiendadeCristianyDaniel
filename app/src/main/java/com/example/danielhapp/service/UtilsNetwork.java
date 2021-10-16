@@ -10,6 +10,7 @@ import com.example.danielhapp.LoginActivity;
 import com.example.danielhapp.MainActivity;
 
 public class UtilsNetwork {
+
     public static boolean isOnline(Context context) {
 
         ConnectivityManager connectivityManager =(ConnectivityManager)
