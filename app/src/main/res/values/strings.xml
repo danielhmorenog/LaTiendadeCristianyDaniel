@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">La Tienda de Cristian y Daniel</string>
     <string name="btn_login">Ingresar Pedido</string>
     <string name="btn_return">Regresar</string>
@@ -7,6 +8,7 @@
     <string name="btn_delegado">Delegado</string>
     <string name="pick_password">Pick your password</string>
     <string name="pick_user">Pick your user</string>
+
 
 
 </resources>
