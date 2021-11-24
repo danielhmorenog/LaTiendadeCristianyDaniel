@@ -1,5 +1,4 @@
 package com.example.danielhapp;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -34,9 +34,9 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
 
-    Button btn_salir, btn_navegar;
+    ImageButton btn_salir, btn_navegar;
+    Button btnAdministrador;
     Intent internet;
-
 
      private GoogleApiClient googleApiClient;
      private FirebaseAuth mAuth;
@@ -50,8 +50,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
        btn_salir = findViewById(R.id.btnSalirR);
        btn_navegar= findViewById(R.id.btn_navegar);
+       btnAdministrador = findViewById(R.id.btnAdmin);
 
-        mAuth = FirebaseAuth.getInstance();
+       mAuth = FirebaseAuth.getInstance();
+
+       btnAdministrador.setOnClickListener(view -> {
+            startActivity(new Intent(MainActivity.this, Administrador.class));
+       });
 
        btn_salir.setOnClickListener(view -> {
            mAuth.signOut();

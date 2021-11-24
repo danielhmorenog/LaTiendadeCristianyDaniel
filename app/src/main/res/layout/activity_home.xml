@@ -3,106 +3,118 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Home">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:foregroundGravity="center"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:gravity="center"
-        android:foregroundGravity="center"
-        android:orientation="horizontal"
-        android:layout_marginBottom="60dp"
-        >
+        <ImageView
+            android:id="@+id/imageSelec"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:layout_marginLeft="-45dp"
+            android:layout_marginTop="-65dp"
+            app:srcCompat="@drawable/select" />
 
-        <TextView
-            android:id="@+id/tv1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="70px"
-            android:textColor="@color/black"
-            android:text="Bienvenidos a esta tu tienda virtual!!!" />
-    </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="60px"
-            android:textColor="@color/black"
-            android:text="Realiza tu pedido" />
-
-        <CheckBox
-            android:id="@+id/cbProducto1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Leche" />
-
-        <CheckBox
-            android:id="@+id/cbProducto2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Gaseosa" />
-
-        <CheckBox
-            android:id="@+id/cbProducto3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Cereal" />
+        <ImageView
+            android:id="@+id/imageDomicilio"
+            android:layout_width="wrap_content"
+            android:layout_height="54dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="-10dp"
+            app:srcCompat="@drawable/address" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:foregroundGravity="center"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            >
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            tools:layout_gravity="center">
 
-            <Space
+            <CheckBox
+                android:id="@+id/cbProducto1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_height="30dp"
+                android:text="Six Pack Cervezas" />
 
-            <Button
-                android:id="@+id/btnPedir"
+            <CheckBox
+                android:id="@+id/cbProducto2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hacer pedido"
+                android:layout_height="30dp"
+                android:text="Leche Entera 1000ml" />
 
-                android:textAlignment="center" />
-
-            <Space
+            <CheckBox
+                android:id="@+id/cbProducto3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_height="30dp"
+                android:text="Queso Tapioca" />
 
-            <Button
-                android:id="@+id/btnCancelar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cancelar pedido"
-                android:textAlignment="center" />
+            <CheckBox
+                android:id="@+id/cbProducto4"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="CocaCola 1.5L" />
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+            <CheckBox
+                android:id="@+id/cbProducto5"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Frijoles Rojos" />
 
+            <CheckBox
+                android:id="@+id/cbProducto6"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Azucar 500gr" />
+
+            <CheckBox
+                android:id="@+id/cbProducto7"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Platano Maduro" />
+
+            <CheckBox
+                android:id="@+id/cbProducto8"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Atún Vancamps" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal"
+            tools:layout_marginTop="30dp">
+
+            <ImageButton
+                android:id="@+id/btnCancelar"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                app:srcCompat="@drawable/back" />
+
+            <ImageButton
+                android:id="@+id/btnPedir"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:background="#FFFFFF"
+                app:srcCompat="@drawable/ok" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageFooter"
+            android:layout_width="462dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:srcCompat="@drawable/footer"
+            tools:layout_marginLeft="0dp" />
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

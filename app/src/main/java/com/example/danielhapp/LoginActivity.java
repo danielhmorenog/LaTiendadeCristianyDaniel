@@ -36,7 +36,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
-
     TextInputEditText Logemail,Logpass;
     TextView RegisterHere;
     Button btn_Login;
